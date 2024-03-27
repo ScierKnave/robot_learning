@@ -238,7 +238,16 @@ class RL_Trainer(object):
 
         print("\nCollecting data to be used for training...")
 
-        paths, envsteps_this_batch = TODO
+        if itr == 0:
+            with open(self._params['env']['expert_data'], 'rb') as pkl:
+                loaded_paths = pickle.load(pkl)
+            return loaded_paths, 0, None
+        else:
+            paths, envsteps_this_batch  = utils.sample_trajectories(self._env, 
+                                                collect_policy, 
+                                                batch_size, 
+                                                self._params['env']['max_episode_length'])
+        train_video_paths = None
         # collect more rollouts with the same policy, to be saved as videos in tensorboard
         # note: here, we collect MAX_NVIDEO rollouts, each of length MAX_VIDEO_LEN
 
@@ -256,12 +265,12 @@ class RL_Trainer(object):
             # TODO sample some data from the data buffer
             # HINT1: use the agent's sample function
             # HINT2: how much data = self._params['train_batch_size']
-            ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch = TODO
+            #ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch = TODO
 
             # TODO use the sampled data to train an agent
             # HINT: use the agent's train function
             # HINT: keep the agent's training log for debugging
-            train_log = TODO
+            train_log = self._agent.train(*self._agent.sample(self._params['alg']['train_batch_size']))
             all_logs.append(train_log)
         return all_logs
 
@@ -272,21 +281,21 @@ class RL_Trainer(object):
             # TODO sample some data from the data buffer
             # HINT1: use the agent's sample function
             # HINT2: how much data = self._params['train_batch_size']
-            ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch = TODO
+            #ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch = TODO
 
             # TODO use the sampled data to train an agent
             # HINT: use the agent's train_idm function
             # HINT: keep the agent's training log for debugging
-            train_log = TODO
+            train_log = self._agent.train(*self._agent.sample(self._params['alg']['train_batch_size']))
             all_logs.append(train_log)
         return all_logs
 
     def do_relabel_with_expert(self, expert_policy, paths):
         print("\nRelabelling collected observations with labels from an expert policy...")
 
-        # TODO relabel collected obsevations (from our policy) with labels from an expert policy
-        # HINT: query the policy (using the get_action function) with paths[i]["observation"]
-        # and replace paths[i]["action"] with these expert labels
+        for path in paths:
+            for i in range(utils.get_pathlength(path)):
+                path['action'][i] = expert_policy.get_action(path['observation'][i]) 
         return paths
 
     ####################################

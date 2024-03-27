@@ -50,6 +50,10 @@ class GoalConditionedEnv(object):
         # pass render from sub env
         return self.env.render(mode=mode, **kwargs)
     
+    def seed(self, seed):
+        #TODO
+        return seed
+    
     @property
     def action_space(self):
         return self.env.action_space

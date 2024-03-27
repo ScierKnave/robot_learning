@@ -1,0 +1,2 @@
+- env.env_name=reacher
+- env.exp_name=q1_reacher

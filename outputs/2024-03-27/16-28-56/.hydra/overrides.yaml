@@ -1,0 +1,4 @@
+- env.env_name=antmaze
+- env.exp_name=q3_ant_normal
+- env.goal_dist=normal
+- env.goal_frequency=10

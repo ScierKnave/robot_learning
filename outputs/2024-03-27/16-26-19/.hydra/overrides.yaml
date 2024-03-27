@@ -1,0 +1,3 @@
+- env.env_name=reacher
+- env.exp_name=q1_reacher_normal
+- env.goal_dist=normal

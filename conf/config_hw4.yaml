@@ -4,6 +4,8 @@ env:
     max_episode_length: 500
     exp_name: 'todo'
     atari: True
+    goal_dist: normal
+    goal_frequency: 10
     goal_indicies: [0,1]
     uniform_bounds: [[-4,-4], [20,4]]
     gaussian_bounds: [[0,8], [4,4]]
