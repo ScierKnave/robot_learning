@@ -1,0 +1,4 @@
+- env.env_name=antmaze
+- env.exp_name=q3_ant_normal_relative
+- env.goal_dist=normal
+- env.goal_rep=relative

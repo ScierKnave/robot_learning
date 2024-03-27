@@ -1,0 +1,4 @@
+- env.env_name=reacher
+- env.exp_name=q3_reacher_normal_relative
+- env.goal_dist=normal
+- env.goal_rep=relative

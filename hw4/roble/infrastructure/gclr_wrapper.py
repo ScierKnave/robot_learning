@@ -134,6 +134,8 @@ class GoalConditionedEnv(object):
 
     def step(self, action):
         ## Add code to compute a new goal-conditioned reward
+        print(action)
+        exit()
         self.obs, reward, self.done, self.info = self.env.step(action)
         self.info["reached_goal"] = self.success_fn()
         return self.createState(self.obs), self.reward(self.obs, action), self.done, self.info
